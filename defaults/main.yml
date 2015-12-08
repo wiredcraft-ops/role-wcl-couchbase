@@ -65,3 +65,65 @@ couchbase_server_tmpdir: "/tmp"
 couchbase_server_tune_os: false
 couchbase_server_firewall: false
 couchbase_server_local_package: false
+
+#
+# Tuning
+#
+couchbase_server_swappiness: 0
+couchbase_server_tcp_rfc1337: 1
+couchbase_server_tcp_workaround_signed_windows: 1
+couchbase_server_tcp_sack: 1
+couchbase_server_tcp_fack: 1
+couchbase_server_mtu_probing: 1
+couchbase_server_file_max: 524288
+couchbase_server_netdev_max_backlog: 300000
+couchbase_server_tcp_moderate_rcvbuf: 1
+couchbase_server_tcp_congestion_control: htcp
+couchbase_server_somaxconn: 40000
+couchbase_server_tcp_max_syn_backlog: 40000
+couchbase_server_tcp_window_scaling: 1
+couchbase_server_tcp_fin_timeout: 15
+couchbase_server_tcp_keepalive_intvl: 30
+couchbase_server_dirty_bytes: 209715200
+couchbase_server_dirty_background_bytes: 104857600
+couchbase_server_disk_scheduler: noop
+
+
+#
+# CentOS 7
+#
+couchbase_server_centos_ee_version: 4.0.0
+couchbase_server_centos_ee_package: couchbase-server-enterprise-{{ couchbase_server_centos_ee_version }}-centos7.x86_64.rpm
+couchbase_server_centos_ee_url: http://packages.couchbase.com/releases/{{ couchbase_server_centos_ee_version }}/{{ couchbase_server_centos_ee_package }}
+couchbase_server_centos_ee_sha256: 063eb23c6f796fadb0af9b03ea527ad910d3a9e03d9ef4ba6aa100db318f6f5b
+
+couchbase_server_centos_ce_version: 4.0.0
+couchbase_server_centos_ce_package: couchbase-server-community-{{ couchbase_server_centos_ce_version }}-centos7.x86_64.rpm
+couchbase_server_centos_ce_url: http://packages.couchbase.com/releases/{{ couchbase_server_centos_ce_version }}/{{ couchbase_server_centos_ce_package }}
+couchbase_server_centos_ce_sha256: 73f048e49617095e6a0cb9a82f74578d48b1054e8142fb712eab71395d7b9ce0
+
+#
+# Debian 7
+#
+couchbase_server_debian_ee_version: 4.0.0
+couchbase_server_debian_ee_package: couchbase-server-enterprise_{{ couchbase_server_debian_ee_version }}-debian7_amd64.deb
+couchbase_server_debian_ee_url: http://packages.couchbase.com/releases/{{ couchbase_server_debian_ee_version }}/{{ couchbase_server_debian_ee_package }}
+couchbase_server_debian_ee_sha256: 7663881917182712d9d5ed64698e2e568148e5a5ca986af36babed7b6d55725e
+
+couchbase_server_debian_ce_version: 4.0.0
+couchbase_server_debian_ce_package: couchbase-server-community_{{ couchbase_server_debian_ce_version }}-debian7_amd64.deb
+couchbase_server_debian_ce_url: http://packages.couchbase.com/releases/{{ couchbase_server_debian_ce_version }}/{{ couchbase_server_debian_ce_package }}
+couchbase_server_debian_ce_sha256: 1fb8961e54b0e4a9d1fc2efc925b82054281abf3c520294311d874e66d78cf6e
+
+#
+# Ubuntu 14.04
+#
+couchbase_server_ubuntu_ee_version: 4.0.0
+couchbase_server_ubuntu_ee_package: couchbase-server-enterprise_{{ couchbase_server_ubuntu_ee_version }}-ubuntu14.04_amd64.deb
+couchbase_server_ubuntu_ee_url: http://packages.couchbase.com/releases/{{ couchbase_server_ubuntu_ee_version }}/{{ couchbase_server_ubuntu_ee_package }}
+couchbase_server_ubuntu_ee_sha256: c4fad00fe6006a31a82aa4879e7ae502cb9d397339e6d28f352312a0a5be9edd
+
+couchbase_server_ubuntu_ce_version: 4.0.0
+couchbase_server_ubuntu_ce_package: couchbase-server-community_{{ couchbase_server_ubuntu_ce_version }}-ubuntu14.04_amd64.deb
+couchbase_server_ubuntu_ce_url: http://packages.couchbase.com/releases/{{ couchbase_server_ubuntu_ce_version }}/{{ couchbase_server_ubuntu_ce_package }}
+couchbase_server_ubuntu_ce_sha256: e275717da0c22efb846b397a1ffeaf63a21ec91e4e481efe3b59de0a0d530982
