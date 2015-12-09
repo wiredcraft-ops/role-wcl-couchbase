@@ -46,12 +46,20 @@
 
 - name: Disable THP
   sudo: True
-  shell: echo 'for i in /sys/kernel/mm/*transparent_hugepage/enabled; do echo never > $i; done' >> /etc/rc.local
-  shell: echo 'for i in /sys/kernel/mm/*transparent_hugepage/defrag; do echo never > $i; done' >> /etc/rc.local
-  shell: for i in /sys/kernel/mm/*transparent_hugepage/enabled; do echo never > $i; done
+  lineinfile:
+    dest=/etc/rc.local
+    line={{ item }}
+    state=present
+  with_items:
+    - for i in /sys/kernel/mm/*transparent_hugepage/enabled; do echo never > $i; done
+    - for i in /sys/kernel/mm/*transparent_hugepage/defrag; do echo never > $i; done
   when: ansible_distribution_version != "12.04"
-  ignore_errors: True
-  notify: Source local settings
+  register: disable_thp
+
+- name: Run local changes
+  shell:
+    bash /etc/rc.local
+  when: ansible_distribution_version != "12.04" and disable_thp.changed
 
 - name: Couchbase Server Service
   service: name=couchbase-server state=started

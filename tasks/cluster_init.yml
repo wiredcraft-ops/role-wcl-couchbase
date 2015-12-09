@@ -17,6 +17,7 @@
       --cluster-init-port={{couchbase_server_admin_port}} \
       --cluster-init-ramsize={{ couchbase_server_ram }}"
   when: cb_major_version['stdout'] != "4"
+  ignore_errors: true
 
 - name: Configure cluster settings
   shell: 
@@ -30,6 +31,7 @@
       --cluster-init-ramsize={{ couchbase_server_ram }} \
       --services={{ couchbase_server_node_services }}"
   when: cb_major_version['stdout'] == "4"
+  ignore_errors: true
 
 - name: Wait for Admin
   wait_for: "port={{ couchbase_server_admin_port }} delay=5"
@@ -43,3 +45,4 @@
       --cluster-init-username={{ couchbase_server_admin }} \
       --node-init-hostname={{ couchbase_server_node }}"
   when: cb_major_version['stdout'] != "2"
+  ignore_errors: true

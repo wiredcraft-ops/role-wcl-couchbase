@@ -21,5 +21,6 @@
       --bucket-ramsize={{ item.ram }} \
       --bucket-replica={{ item.replica | default(1) }}"
   when: couchbase_server_health['stdout'] == "healthy"
+  ignore_errors: true
   with_items:
     couchbase_buckets
