@@ -2,11 +2,8 @@
 - include: cluster_install.yml
   when: couchbase_cluster_install
 
-- include: cluster_init_primary.yml
-  when: couchbase_cluster_init_primary
-
-- include: cluster_init_additional.yml
-  when: couchbase_cluster_init_additional
+- include: cluster_init.yml
+  when: couchbase_cluster_init
 
 - include: cluster_add_rebalance.yml
   when: couchbase_cluster_add_rebalance

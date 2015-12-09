@@ -1,18 +1,11 @@
 ---
-- name: Create cluster grouping
-  group_by: key={{ couchbase_server_node_role }}
-
-- name: Get major version
-  shell: cat /opt/couchbase/VERSION.txt | cut -d '.' -f1
-  register: cb_major_version
-
 - name: Join additional cluster nodes
   shell: 
     "{{ couchbase_server_home_path }}/bin/couchbase-cli server-add \
-      -c {{ couchbase_server_primary_node }}:{{ couchbase_server_admin_port }} \
+      -c {{ couchbase_server_node }}:{{ couchbase_server_admin_port }} \
       --user={{ couchbase_server_admin }} \
       --password={{ couchbase_server_password }} \
-      --server-add={{hostvars[[item][0]]['inventory_hostname']}}:{{ couchbase_server_admin_port }} \
+      --server-add={{ hostvars[item]['ansible_'+ iface | default('eth0') ]['ipv4']['address'] }}:{{ couchbase_server_admin_port }} \
       --server-add-username={{ couchbase_server_admin }} \
       --server-add-password={{ couchbase_server_password }}"
   with_items: groups['additional']
@@ -20,6 +13,6 @@
 - name: Rebalance cluster
   shell: 
     "{{ couchbase_server_home_path }}/bin/couchbase-cli rebalance \
-      -c {{ couchbase_server_primary_node }}:{{ couchbase_server_admin_port }} \
+      -c {{ couchbase_server_node }}:{{ couchbase_server_admin_port }} \
       --user={{ couchbase_server_admin }} \
       --password={{ couchbase_server_password }}"
