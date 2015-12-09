@@ -67,6 +67,14 @@ couchbase_server_firewall: false
 couchbase_server_local_package: false
 
 #
+# Bucket defaults
+#
+couchbase_server_bucket_type: couchbase
+couchbase_server_bucket_port: 11211
+couchbase_server_bucket_replica: 1
+
+
+#
 # Tuning
 #
 couchbase_server_swappiness: 0

@@ -16,10 +16,10 @@
       --user={{ couchbase_server_admin }} \
       --password={{ couchbase_server_password }} \
       --bucket={{ item.name }} \
-      --bucket-type={{ couchbase_server_bucket_type }} \
+      --bucket-type={{ item.type | default(couchbase_server_bucket_type) }} \
       --bucket-port={{ couchbase_server_bucket_port }} \
       --bucket-ramsize={{ item.ram }} \
-      --bucket-replica={{ item.replica }}"
+      --bucket-replica={{ item.replica | default(1) }}"
   when: couchbase_server_health['stdout'] == "healthy"
   with_items:
     couchbase_buckets
