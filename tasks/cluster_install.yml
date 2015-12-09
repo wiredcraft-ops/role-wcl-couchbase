@@ -2,7 +2,7 @@
 # File: tasks/main.yml - Main tasks for ansible-couchbase-server
 
 # Ansible distrib tasks
-- include: {{ ansible_distribution }}.yml
+- include: "{{ ansible_distribution }}".yml
 
 - name: Update user limits
   sudo: True
