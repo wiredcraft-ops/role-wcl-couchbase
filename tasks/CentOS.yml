@@ -56,6 +56,19 @@
   when: couchbase_server_edition == "community"
   tags: installation
 
+- name: Add systemd config file for CentOS 
+  copy: 
+    src=couchbase-server.service
+    dest=/lib/systemd/system/couchbase-server.service
+    owner=root
+    group=root
+  # when: 
+  tags: installation
+
+- name: Enable new systemd config
+  shell: systemctl daemon-reload && systemctl enable couchbase-server 
+  tags: installation
+
 # Firewall (optional)
 - name: Firewall limitations
   include: CentOS_firewall.yml

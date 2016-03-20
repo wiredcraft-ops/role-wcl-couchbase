@@ -1,0 +1,25 @@
+# -*- mode: conf-unix; -*-
+#
+# http://unix.stackexchange.com/questions/245303/failed-to-start-couchbase-server-service-unit-couchbase-server-service-failed-t
+# https://forums.couchbase.com/t/centos-7-couchbase-server-cannot-start-the-service/6261/5
+# https://issues.couchbase.com/browse/MB-17193
+#
+[Unit]
+Description = Couchbase Server
+Documentation = http://docs.couchbase.com
+After = network.target remote-fs.target nss-lookup.target
+
+[Service]
+SyslogIdentifier = couchbase
+User = couchbase
+Type = forking
+PIDFile=/opt/couchbase/var/lib/couchbase/couchbase-server.pid
+WorkingDirectory = /opt/couchbase/var/lib/couchbase
+LimitNOFILE = 40960
+LimitCORE = unlimited
+LimitMEMLOCK = unlimited
+ExecStart = /opt/couchbase/bin/couchbase-server -noinput -detached > /opt/couchbase/var/lib/couchbase/logs/start.log 2>&1
+ExecStop = /opt/couchbase/bin/couchbase-server -k
+
+[Install]
+WantedBy = multi-user.target
