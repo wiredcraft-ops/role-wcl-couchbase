@@ -20,13 +20,13 @@
   tags: installation
 
 - name: Install package
-  sudo: True
+  become: True
   yum: "name=/tmp/{{ couchbase_server_centos_ee_package }} state=present"
   when: couchbase_server_edition == "enterprise"
   tags: installation
 
 - name: Package file cleanup
-  sudo: True
+  become: True
   file: "dest=/tmp/{{ couchbase_server_centos_ee_package }} state=absent"
   when: couchbase_server_edition == "enterprise"
   tags: installation
@@ -44,13 +44,13 @@
   tags: installation
 
 - name: Install package
-  sudo: True
+  become: True
   yum: "name=/tmp/{{ couchbase_server_centos_ce_package }} state=present"
   when: couchbase_server_edition == "community"
   tags: installation
 
 - name: Package file cleanup
-  sudo: True
+  become: True
   file: "dest=/tmp/{{ couchbase_server_centos_ce_package }} state=absent"
   when: couchbase_server_edition == "community"
   tags: installation

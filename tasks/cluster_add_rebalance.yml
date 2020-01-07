@@ -3,7 +3,7 @@
   shell: 
     "{{ couchbase_server_bin_path }}/couchbase-cli server-add \
       -c {{ couchbase_server_node }}:{{ couchbase_server_admin_port }} \
-      --user={{ couchbase_server_admin }} \
+      --username={{ couchbase_server_admin }} \
       --password={{ couchbase_server_password }} \
       --server-add={{ hostvars[item]['ansible_'+ iface | default('eth0') ]['ipv4']['address'] }}:{{ couchbase_server_admin_port }} \
       --server-add-username={{ couchbase_server_admin }} \

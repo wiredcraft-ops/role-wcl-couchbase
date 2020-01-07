@@ -4,7 +4,7 @@
 # the specified Couchbase Server cluster nodes with cbcollect_info
 
 - hosts: cluster_nodes
-  sudo: True
+  become: True
   vars_files:
     - ../defaults/main.yml
 

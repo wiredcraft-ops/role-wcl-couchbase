@@ -10,27 +10,11 @@
   shell: 
     "{{ couchbase_server_bin_path }}/couchbase-cli cluster-init \
       -c {{ couchbase_server_node }}:{{ couchbase_server_admin_port }} \
-      --user={{ couchbase_server_admin }} \
-      --password={{ couchbase_server_password }} \
-      --cluster-init-username={{ couchbase_server_admin }} \
-      --cluster-init-password={{ couchbase_server_password }} \
-      --cluster-init-port={{couchbase_server_admin_port}} \
-      --cluster-init-ramsize={{ couchbase_server_ram }}"
+      --cluster-username={{ couchbase_server_admin }} \
+      --cluster-password={{ couchbase_server_password }} \
+      --cluster-port={{couchbase_server_admin_port}} \
+      --cluster-ramsize={{ couchbase_server_ram }}"
   when: cb_major_version['stdout'] != "4"
-  ignore_errors: true
-
-- name: Configure cluster settings
-  shell: 
-    "{{ couchbase_server_bin_path }}/couchbase-cli cluster-init \
-      -c {{ couchbase_server_node }}:{{ couchbase_server_admin_port }} \
-      --user={{ couchbase_server_admin }} \
-      --password={{ couchbase_server_password }} \
-      --cluster-init-username={{ couchbase_server_admin }} \
-      --cluster-init-password={{ couchbase_server_password }} \
-      --cluster-init-port={{couchbase_server_admin_port}} \
-      --cluster-init-ramsize={{ couchbase_server_ram }} \
-      --services={{ couchbase_server_node_services }}"
-  when: cb_major_version['stdout'] == "4"
   ignore_errors: true
 
 - name: Wait for Admin
@@ -40,9 +24,8 @@
   shell: 
     "{{ couchbase_server_bin_path }}/couchbase-cli node-init \
       -c {{ couchbase_server_node }}:{{ couchbase_server_admin_port }} \
-      --user={{ couchbase_server_admin }} \
+      --username={{ couchbase_server_admin }} \
       --password={{ couchbase_server_password }} \
-      --cluster-init-username={{ couchbase_server_admin }} \
       --node-init-hostname={{ couchbase_server_node }}"
   when: cb_major_version['stdout'] != "2"
   ignore_errors: true

@@ -3,14 +3,14 @@
 # Ansible playbook to grab SSL certificates from all cluster nodes
 
 - hosts: cluster_nodes
-  sudo: True
+  become: True
   tasks:
   - name: Create cluster grouping
     group_by: key={{ couchbase_server_node_role }}
 
 - hosts: primary
   gather_facts: False
-  sudo: True
+  become: True
   vars:
     couchbase_server_primary_node: "{{hostvars[groups['primary'][0]]['inventory_hostname']}}"
   vars_files:

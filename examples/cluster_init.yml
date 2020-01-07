@@ -3,14 +3,14 @@
 # Example Ansible playbook to initialize a new Couchbase Server cluster
 
 - hosts: cluster_nodes
-  sudo: True
+  become: True
   tasks:
 
   - name: Create cluster grouping
     group_by: key={{ couchbase_server_node_role }}
 
 - hosts: cluster_nodes
-  sudo: True
+  become: True
   roles:
     - couchbase.couchbase-server
   tasks:
@@ -23,7 +23,7 @@
 #############################################################################
 
 - hosts: primary
-  sudo: True
+  become: True
   #serial: 1
   gather_facts: False
   vars_files:
@@ -59,7 +59,7 @@
 #############################################################################
 
 - hosts: additional
-  sudo: True
+  become: True
   #serial: 1
   gather_facts: False
   vars_files:
@@ -93,10 +93,10 @@
 #############################################################################
 
 - hosts: primary
-  sudo: True
+  become: True
 
 - hosts: primary
-  sudo: True
+  become: True
   vars_files:
     - ../defaults/main.yml
   vars:
