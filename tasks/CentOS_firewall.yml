@@ -5,18 +5,18 @@
 ## Static firewall rules using iptables instead of firewalld
 
 - name: Stop firewalld
-  sudo: True
+  become: True
   service: "name=firewalld state=stopped"
   when: ansible_distribution_major_version >= 7 
   tags: firewall
 
 - name: Install iptables rules
-  sudo: True
+  become: True
   yum: "name=iptables-services state=present"
   tags: firewall
 
 - name: Mask firewalld
-  sudo: True
+  become: True
   shell: "systemctl mask firewalld.service"
   when: ansible_distribution_major_version >= 7 
   tags: firewall

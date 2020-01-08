@@ -19,7 +19,7 @@
   tags: installation
 
 - name: Package file cleanup
-  sudo: True
+  become: True
   file: "dest=/tmp/{{ couchbase_server_debian_ee_package }} state=absent"
   when: couchbase_server_edition == "enterprise"
   tags: installation
@@ -42,7 +42,7 @@
   tags: installation
 
 - name: Package file cleanup
-  sudo: True
+  become: True
   file: "dest=/tmp/{{ couchbase_server_debian_ce_package }} state=absent"
   when: couchbase_server_edition == "community"
   tags: installation
