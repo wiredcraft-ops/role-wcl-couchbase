@@ -1,19 +1,19 @@
 ---
 - name: Verify node health
-  shell: 
+  shell:
     "{{ couchbase_server_bin_path }}/couchbase-cli server-list \
       -c {{ couchbase_server_node }}:{{ couchbase_server_admin_port }} \
-      --user={{ couchbase_server_admin }} \
+      --username={{ couchbase_server_admin }} \
       --password={{ couchbase_server_password }} \
       | awk '/{{ couchbase_server_node }}:{{ couchbase_server_admin_port }}/ {print $3}'"
   register: couchbase_server_health
   failed_when: couchbase_server_health['stdout'] != "healthy"
 
 - name: Create new bucket
-  shell: 
+  shell:
     "{{ couchbase_server_bin_path }}/couchbase-cli bucket-create \
       -c {{ couchbase_server_node }}:{{ couchbase_server_admin_port }} \
-      --user={{ couchbase_server_admin }} \
+      --username={{ couchbase_server_admin }} \
       --password={{ couchbase_server_password }} \
       --bucket={{ item.name }} \
       --bucket-type={{ item.type | default(couchbase_server_bucket_type) }} \
