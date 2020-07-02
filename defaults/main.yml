@@ -138,8 +138,14 @@ couchbase_server_ubuntu_ce_sha256: e275717da0c22efb846b397a1ffeaf63a21ec91e4e481
 
 #
 # Drives the execution of the tasks
-# 
+#
 couchbase_cluster_install: false
 couchbase_cluster_init: false
 couchbase_cluster_add_rebalance: false
 couchbase_create_bucket: false
+
+#
+# Memory setting for different service
+#
+couchbase_index_ram: 512
+couchbase_fts_ram: 256
