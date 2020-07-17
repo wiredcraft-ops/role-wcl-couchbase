@@ -10,6 +10,7 @@
       --server-add-password={{ couchbase_server_password }} \
       --service={{ couchbase_server_node_services }}"
   with_items: "{{ groups['additional'] }}"
+  when: "{{ 'additional' in groups }}"
 
 - name: Rebalance cluster
   shell:
