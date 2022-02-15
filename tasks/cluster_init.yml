@@ -16,7 +16,7 @@
       --cluster-ramsize={{ couchbase_server_ram }} \
       --cluster-index-ramsize={{ couchbase_index_ram }}
       --cluster-fts-ramsize={{ couchbase_fts_ram }} \
-      --service={{ couchbase_server_node_services }}"
+      --services={{ couchbase_server_node_services }}"
   when: cb_major_version['stdout'] != "4"
 
 - name: Wait for Admin
