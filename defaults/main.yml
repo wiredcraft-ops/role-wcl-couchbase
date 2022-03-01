@@ -112,6 +112,13 @@ couchbase_server_centos_ce_url: http://packages.couchbase.com/releases/{{ couchb
 couchbase_server_centos_ce_sha256: 73f048e49617095e6a0cb9a82f74578d48b1054e8142fb712eab71395d7b9ce0
 
 #
+#  RedHat 8
+couchbase_server_RedHat_8_community_version: 7.0.2
+couchbase_server_RedHat_8_community_package: couchbase-server-community-{{ couchbase_server_RedHat_8_community_version }}-centos8.x86_64.rpm
+couchbase_server_RedHat_8_community_url: http://packages.couchbase.com/releases/{{ couchbase_server_RedHat_8_community_version }}/{{ couchbase_server_RedHat_8_community_package }}
+couchbase_server_RedHat_8_community_sha256: a26c2cd8d2b0dcea35dab82b09bdaa9d7abf7d7f5c28b026e8302f2c8bdc0a15
+
+#
 # Debian 7
 #
 couchbase_server_debian_ee_version: 4.0.0
