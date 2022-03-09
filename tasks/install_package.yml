@@ -1,0 +1,26 @@
+---
+- set_fact:
+    couchbase_server_version: "{{ lookup('vars', 'couchbase_server_' + ansible_distribution+ '_' +  ansible_distribution_major_version + '_'+ couchbase_server_edition + '_version') }}"
+    couchbase_server_package: "{{ lookup('vars', 'couchbase_server_' + ansible_distribution+ '_' +  ansible_distribution_major_version + '_'+ couchbase_server_edition + '_package') }}"
+    couchbase_server_url: "{{ lookup('vars', 'couchbase_server_' + ansible_distribution+ '_' +  ansible_distribution_major_version + '_'+ couchbase_server_edition + '_url') }}"
+    couchbase_server_sha256: "{{ lookup('vars', 'couchbase_server_' + ansible_distribution+ '_' +  ansible_distribution_major_version + '_'+ couchbase_server_edition + '_sha256') }}"
+
+- name: Copy package
+  copy: "src={{ couchbase_server_package }} dest=/tmp/{{ couchbase_server_package }}"
+  when: couchbase_server_local_package == true
+  tags: installation
+
+- name: Download package
+  get_url: "url={{ couchbase_server_url }} dest=/tmp/{{ couchbase_server_package }} sha256sum={{ couchbase_server_sha256 }} timeout=240"
+  when: couchbase_server_local_package != true
+  tags: installation
+
+- name: Install package
+  become: True
+  yum: "name=/tmp/{{ couchbase_server_package }} state=present"
+  tags: installation
+
+- name: Package file cleanup
+  become: True
+  file: "dest=/tmp/{{ couchbase_server_package }} state=absent"
+  tags: installation
