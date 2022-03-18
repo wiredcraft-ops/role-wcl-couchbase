@@ -5,6 +5,12 @@
 
 - name: SELinux Python Module
   yum: name=libselinux-python state=present
+  when: ansible_distribution == 'RedHat' and ansible_distribution_major_version != '8'
+  tags: installation
+
+- name: SELinux Python Module
+  yum: name=python3-libselinux state=present
+  when: ansible_distribution == 'RedHat' and ansible_distribution_major_version == '8'
   tags: installation
 
 # Couchbase Server Enterprise Edition
@@ -32,27 +38,59 @@
   tags: installation
 
 # Couchbase Server Community Edition
-
+## For CentOS7
 - name: Copy package
   copy: "src={{ couchbase_server_centos_ce_package }} dest=/tmp/{{ couchbase_server_centos_ce_package }}"
-  when: couchbase_server_edition == "community" and couchbase_server_local_package == true
+  when: couchbase_server_edition == "community" and couchbase_server_local_package == true and ansible_distribution == 'RedHat' and ansible_distribution_major_version != '8'
   tags: installation
 
+## For Redhat8
+- name: Copy package
+  copy: "src={{ couchbase_server_RedHat_8_community_package }} dest=/tmp/{{ couchbase_server_centos_ce_package }}"
+  when: couchbase_server_edition == "community" and couchbase_server_local_package == true and ansible_distribution == 'RedHat' and ansible_distribution_major_version == '8'
+  tags: installation
+
+# Download couchbase package
+## For CentOS7
 - name: Download package
   get_url: "url={{ couchbase_server_centos_ce_url }} dest=/tmp/{{ couchbase_server_centos_ce_package }} sha256sum={{ couchbase_server_centos_ce_sha256 }} timeout=240"
-  when: couchbase_server_edition == "community" and couchbase_server_local_package != true
+  when: couchbase_server_edition == "community" and couchbase_server_local_package != true and ansible_distribution == 'RedHat' and ansible_distribution_major_version != '8'
   tags: installation
 
+## For Redhat8
+- name: Download package
+  get_url: "url={{ couchbase_server_RedHat_8_community_package }} dest=/tmp/{{ couchbase_server_RedHat_8_community_package }} sha256sum={{ couchbase_server_RedHat_8_community_sha256 }} timeout=240"
+  when: couchbase_server_edition == "community" and couchbase_server_local_package != true and ansible_distribution == 'RedHat' and ansible_distribution_major_version == '8'
+  tags: installation
+
+# Install package
+## For CentOS7
 - name: Install package
   become: True
   yum: "name=/tmp/{{ couchbase_server_centos_ce_package }} state=present"
-  when: couchbase_server_edition == "community"
+  when: couchbase_server_edition == "community" and ansible_distribution == 'RedHat' and ansible_distribution_major_version != '8'
   tags: installation
 
+## For Redhat8
+- name: Install package
+  become: True
+  yum: "name=/tmp/{{ couchbase_server_RedHat_8_community_package }} state=present"
+  when: couchbase_server_edition == "community" and ansible_distribution == 'RedHat' and ansible_distribution_major_version == '8'
+  tags: installation
+
+# Package file cleanup
+## For CentOS7
 - name: Package file cleanup
   become: True
   file: "dest=/tmp/{{ couchbase_server_centos_ce_package }} state=absent"
-  when: couchbase_server_edition == "community"
+  when: couchbase_server_edition == "community" and ansible_distribution == 'RedHat' and ansible_distribution_major_version != '8'
+  tags: installation
+
+## For Redhat8
+- name: Package file cleanup
+  become: True
+  file: "dest=/tmp/{{ couchbase_server_RedHat_8_community_package }} state=absent"
+  when: couchbase_server_edition == "community" and ansible_distribution == 'RedHat' and ansible_distribution_major_version == '8'
   tags: installation
 
 # Firewall (optional)
